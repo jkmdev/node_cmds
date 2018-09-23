@@ -1,13 +1,13 @@
 {
-  "name": "quicknote",
+  "name": "node-cmds",
   "version": "1.0.0",
-  "description": "A command-line tool for creating quick notes.",
+  "description": "A series of command-line tools built with node.js.",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
     "quicknote": "./commands/quicknote.js",
     "testing": "./commands/test.js"
   },
-  "author": "",
+  "author": "Julia McGeoghan",
   "license": "Apache-2.0"
 }
