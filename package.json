@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "description": "A command-line tool for creating quick notes.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "preferGlobal": true,
   "bin": {
-    "quicknote": "./index.js"
+    "quicknote": "./commands/quicknote.js",
+    "testing": "./commands/test.js"
   },
   "author": "",
   "license": "Apache-2.0"
