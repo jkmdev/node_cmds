@@ -10,7 +10,13 @@ fsProm.readdir(utils.homeURL('Projects'))
   .catch((err) => console.log(err));
 
 var res = utils.execute("which atom");
-console.log(res);
+//https://medium.com/@samthor/js-callbacks-to-promises-541adc46c07c
+//http://browserify.org/
+
+//next step: make utils.execute return a promise
+
+
+//console.log(res);
   // .then((output) => {console.log(output)})
   // .catch(() => {});
 
