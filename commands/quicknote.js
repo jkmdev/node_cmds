@@ -7,7 +7,7 @@ var utils = require('../lib/utils.js');
 var fileName = 'QUICKNOTE.txt';
 const fileURL = utils.urlFromUserDir('Documents/' + fileName);
 
-var appendText;
+var appendText = '';
 
 for (let j = 2; j < process.argv.length; j++) {
     appendText += process.argv[j] + " ";
