@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 'use strict';
 
+//opens default workspace for javascript-based projects
+//user is prompted to select the project they want to on
+//a text editor and two command line windows will then open the project
+//when atom closes, the terminals close too
+//assumes a Project folder exists in the user's directory
+  //in the future the project folder can be set on the command line
+
 var fsProm = require('fs').promises;
 var utils = require('../lib/utils.js');
-const {promisify} = require("es6-promisify");
-var exec = promisify(require('child_process').exec);
 
 const atomCmd = "atom Projects";
 const terminalCmd = "gnome-terminal --working-directory='Projects/Node/NodeCommands'";
-
-//if projects directory doesn't exist, it creates one
 
 function main() {
   var projectName = getProjectNameFromUser();
@@ -25,8 +28,8 @@ function main() {
   //   console.log('You just typed: '+cmd);
   // });
 
-  openApp(atomCmd);
-  openApp(terminalCmd);
+  utils.openApp(atomCmd);
+  utils.openApp(terminalCmd);
 }
 main();
 
@@ -37,7 +40,7 @@ function getProjectNameFromUser() {
   fsProm.readdir(utils.urlFromUserDir('Projects'))
       .then((ret) => {
         console.log("Select project type: ");
-        //printDir(ret);
+        //utils.printDir(ret);
         getUserInput(ret);
       })
       .then ((ret) => {
@@ -45,14 +48,6 @@ function getProjectNameFromUser() {
       })
       .catch((err) => console.log(err));
 
-}
-
-function printDir(directory) {
-  directory.forEach(function(element) {
-    if (isFolder(element)) {
-      console.log("\t" + element);
-    }
-  });
 }
 
 function isFolder(element) {
@@ -80,26 +75,3 @@ function isValidInput(directory, input) {
   });
   return valid;
 }
-
-function openApp(location) {
-  exec(location)
-    .catch((err) => console.log(err));
-}
-
-//enter project folder in command line
-//will open project with atom and two terminals
-//when atom closes, the terminals close too
-
-//Starts environment for existing project
-
-//startp projectname
-  // -> starts up programs and terminal windows based off files
-  // -> opens project folder with atom as well as two terminal windows
-  // relative to project folder
-
-//prints names of current projects
-  // Type of project:
-    //1. Angular
-    //2. node
-
-//from your choice, the following projects are available
