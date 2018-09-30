@@ -9,26 +9,28 @@ var utils = require('../lib/utils.js');
 
 var fileName = 'QUICKNOTE.txt';
 const fileURL = utils.urlFromUserDir('Documents/' + fileName);
-var appendText = '';
+
 
 function main() {
 
-  getTextFromArgs();
+  var appendText = getTextFromArgs();
 
   if (appendText) {
-    appendTextToFile();
+    appendTextToFile(appendText);
   }
 
 }
 main();
 
 function getTextFromArgs() {
+  var text = '';
   for (let j = 2; j < process.argv.length; j++) {
-      appendText += process.argv[j] + " ";
+      text += process.argv[j] + " ";
   }
+  return text;
 }
 
-function appendTextToFile() {
+function appendTextToFile(appendText) {
   fs.appendFile(fileURL, appendText + '\n', function (err) {
     if (err) throw err;
     console.log(appendText + 'added to ' + fileName);
