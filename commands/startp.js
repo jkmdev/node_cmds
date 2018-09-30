@@ -6,27 +6,46 @@ var utils = require('../lib/utils.js');
 const {promisify} = require("es6-promisify");
 var exec = promisify(require('child_process').exec);
 
+const atomCmd = "atom Projects";
+const terminalCmd = "gnome-terminal --working-directory='Projects/Node/NodeCommands'";
+
 //if projects directory doesn't exist, it creates one
 
-fsProm.readdir(utils.urlFromUserDir('Projects'))
-    .then((ret) => {
-      console.log("Select project type: ");
-      //printDir(ret);
-      getUserInput(ret);
-    })
-    .then ((ret) => {
-      console.log('???');
-    })
-    .catch((err) => console.log(err));
+function main() {
+  var projectName = getProjectNameFromUser();
+  // var readline = require('readline');
+  //
+  // var rl = readline.createInterface({
+  //   input: process.stdin,
+  //   output: process.stdout,
+  //   terminal: false
+  // });
+  //
+  // rl.on('line', function (cmd) {
+  //   console.log('You just typed: '+cmd);
+  // });
 
-// exec("which atom")
-//   .then((ret) => openApp(ret));
+  openApp(atomCmd);
+  openApp(terminalCmd);
+}
+main();
 
-//var projectName =
 
-//openApp("atom");
 
-//openApp("gnome-terminal --working-directory='Projects/Node/NodeCommands'");
+function getProjectNameFromUser() {
+
+  fsProm.readdir(utils.urlFromUserDir('Projects'))
+      .then((ret) => {
+        console.log("Select project type: ");
+        //printDir(ret);
+        getUserInput(ret);
+      })
+      .then ((ret) => {
+        console.log('???');
+      })
+      .catch((err) => console.log(err));
+
+}
 
 function printDir(directory) {
   directory.forEach(function(element) {

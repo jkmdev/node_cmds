@@ -4,13 +4,14 @@
 var fs = require('fs');
 var os = require('os');
 var url = require('url');
+var utils = require('../lib/utils.js');
 
 var userName = os.userInfo().username;
 
 var fileName = 'QUICKNOTE.txt';
-const fileURL = new url.URL('file:///home/' + userName + '/Documents/' + fileName);
+const fileURL = utils.urlFromUserDir('Documents/' + fileName);
 
-var appendText = '';
+var appendText;
 
 for (let j = 2; j < process.argv.length; j++) {
     appendText += process.argv[j] + " ";
