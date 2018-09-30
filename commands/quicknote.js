@@ -2,11 +2,7 @@
 'use strict';
 
 var fs = require('fs');
-var os = require('os');
-var url = require('url');
 var utils = require('../lib/utils.js');
-
-var userName = os.userInfo().username;
 
 var fileName = 'QUICKNOTE.txt';
 const fileURL = utils.urlFromUserDir('Documents/' + fileName);
