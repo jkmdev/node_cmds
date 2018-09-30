@@ -3,40 +3,26 @@
 
 var fsProm = require('fs').promises;
 var utils = require('../lib/utils.js');
+const {promisify} = require("es6-promisify");
+var exec = promisify(require('child_process').exec);
 
-
-fsProm.readdir(utils.homeURL('Projects'))
-  .then((ret) => console.log(ret))
+fsProm.readdir(utils.urlFromHome('Projects'))
+  .then((ret) => console.log(''))
   .catch((err) => console.log(err));
 
-var res = utils.execute("which atom");
-//https://medium.com/@samthor/js-callbacks-to-promises-541adc46c07c
-//http://browserify.org/
+exec("which atom")
+  .then((ret) => openApp(ret));
 
-//next step: make utils.execute return a promise
+var projectName =
 
+openApp("gnome-terminal --working-directory='Projects/NodeCommands'");
 
-//console.log(res);
-  // .then((output) => {console.log(output)})
-  // .catch(() => {});
+function openApp(location) {
+  exec(location);
+}
 
-//console.log(output);
-//utils.execute(output);
-
-// var atom = "";
-// execute("which atom");
-//
-// function execute(command) {
-//   exec(command, function(error, stdout, stderr) {
-//       atom = stdout;
-//       console.log(atom);
-//       //execute(atom);
-//       if (error !== null) {
-//           console.log('exec error: ' + error);
-//       }
-//   });
-// }
-
+//enter project folder in command line
+//will open project with atom and two terminals
 
 
 //Starts environment for existing project
