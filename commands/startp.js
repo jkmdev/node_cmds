@@ -1,18 +1,8 @@
 #!/usr/bin/env node --no-warnings
 'use strict';
 
-//opens default workspace for javascript-based projects
-//user is prompted to select the project they want to on
-//a text editor and two command line windows will then open the project
-//when atom closes, the terminals close too
-//assumes a Project folder exists in the user's directory
-  //in the future the project folder can be set on the command line
-
 var fs = require('fs');
-var fsProm = require('fs').promises;
 var utils = require('../lib/utils.js');
-var readline = require('readline');
-const {promisify} = require("es6-promisify");
 var readlineSync = require('readline-sync');
 
 const atomCmd = "cd && atom Projects/";
@@ -57,7 +47,7 @@ function isInDirectory(directory, input) {
 }
 
 function openApps(path) {
-  console.log('opening apps');
+  console.log('Opening apps.');
   utils.openApp(atomCmd + path);
   utils.openApp(terminalCmd + path);
   utils.openApp(terminalCmd + path);
