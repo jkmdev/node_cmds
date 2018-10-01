@@ -47,6 +47,14 @@ Working commands:
 
 * quicknote <some text> : sends inputted text to a QUICKNOTE.txt in your Documents folder.
 
+//opens default workspace for javascript-based projects
+//user is prompted to select the project they want to on
+//a text editor and two command line windows will then open the project
+//when atom closes, the terminals close too
+//assumes a Project folder exists in the user's directory
+  //in the future the project folder can be set on the command line
+//in the future can take arguments that change programs to be opened
+//really needs error handling to be implemented
 
 #### Argument 1
 Type: `String`  

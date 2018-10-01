@@ -9,5 +9,9 @@
     "startp": "./commands/startp.js"
   },
   "author": "Julia McGeoghan",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "es6-promisify": "^6.0.0",
+    "readline-sync": "^1.4.9"
+  }
 }
