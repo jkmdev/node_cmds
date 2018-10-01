@@ -1,40 +1,40 @@
 #!/usr/bin/env node
 'use strict';
 
-var fsProm = require('fs').promises;
+//opens project from command line globally
+//creates instance of atom and two terminal windows, currently
+
+var fs = require('fs');
 var utils = require('../lib/utils.js');
-const {promisify} = require("es6-promisify");
-var exec = promisify(require('child_process').exec);
+var readlineSync = require('readline-sync');
 
-fsProm.readdir(utils.urlFromHome('Projects'))
-  .then((ret) => console.log(''))
-  .catch((err) => console.log(err));
+const atomCmd = "cd && atom Projects/";
+const terminalCmd = "cd && gnome-terminal --working-directory='Projects/'";
 
-exec("which atom")
-  .then((ret) => openApp(ret));
+function main() {
+  var path = getProjectPath();
+  openApps(path);
+}
+main();
 
-var projectName =
-
-openApp("gnome-terminal --working-directory='Projects/NodeCommands'");
-
-function openApp(location) {
-  exec(location);
+function getProjectPath() {
+  var projectType = getUserInput('Projects', "What project type?");
+  var project = getUserInput('Projects/' + projectType, "What project?");
+  return projectType + "/" + project;
 }
 
-//enter project folder in command line
-//will open project with atom and two terminals
+function getUserInput(path, question) {
+  var directory = fs.readdirSync(utils.urlFromUserDir(path));
+  var dir = utils.returnDirectories(directory);
+  var index = readlineSync.keyInSelect(dir, question);
+  if (index == -1) process.exit(1);
+  console.log('Ok, you selected ' + dir[index]);
+  return dir[index];
+}
 
-
-//Starts environment for existing project
-
-//startp projectname
-  // -> starts up programs and terminal windows based off files
-  // -> opens project folder with atom as well as two terminal windows
-  // relative to project folder
-
-//prints names of current projects
-  // Type of project:
-    //1. Angular
-    //2. node
-
-//from your choice, the following projects are available
+function openApps(path) {
+  console.log('Opening apps.');
+  utils.openApp(atomCmd + path);
+  utils.openApp(terminalCmd + path);
+  utils.openApp(terminalCmd + path);
+}
