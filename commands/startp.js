@@ -13,80 +13,36 @@ var fsProm = require('fs').promises;
 var utils = require('../lib/utils.js');
 var readline = require('readline');
 const {promisify} = require("es6-promisify");
+var readlineSync = require('readline-sync');
 
-//const atomCmd = "atom Projects/Node/reminder_bot/";
 const atomCmd = "cd && atom Projects/";
-const terminalCmd = "gnome-terminal --working-directory='Projects/Node/NodeCommands'";
+const terminalCmd = "cd && gnome-terminal --working-directory='Projects/'";
 
 function main() {
 
-   var project = getProjectNameFromUser();
+  var path = getProjectPath();
+  openApps(path);
 
 }
 main();
 
-function getProjectNameFromUser() {
+function getProjectPath(directory) {
 
-  var dir = fs.readdirSync(utils.urlFromUserDir('Projects'));
-  var input = getUserInput(dir, console.log);
-  //var input = getUserInput(dir);
+    var directory = fs.readdirSync(utils.urlFromUserDir('Projects'));
+    var projectType = getUserInput(directory, "What project type?");
 
-    // fsProm.readdir(utils.urlFromUserDir('Projects'))
-    //     .then((directory) => {
-    //       console.log("Select project type: ");
-    //       getUserInput(directory)
-    //         .then((ret) => resolve(ret));
-    //     })
-    //     .then ((ret) => {
-    //       console.log('???');
-    //     })
-    //     .catch((err) => console.log(err));
+    var projectDir = fs.readdirSync(utils.urlFromProjectsDir(projectType));
+    var project = getUserInput(projectDir, "What project?");
+
+    return projectType + "/" + project;
+
 }
 
+function getUserInput(directory, question) {
 
-
-function getUserInput(directory, callback) {
-
-    var rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    var projectType;
-    var project;
-
-    console.log('What project type?');
-
-    utils.printDir(directory);
-
-    rl.on("line", (answer) => {
-
-      projectType = `${answer}`;
-
-      if (isInDirectory(directory, projectType)) {
-
-        var dir = fs.readdirSync(utils.urlFromProjectsDir(projectType));
-
-        utils.printDir(dir);
-
-        rl.question("What project? ", (answer) => {
-
-          project = `${answer}`;
-
-          if (isInDirectory(dir, project)) {
-            var path = projectType + "/" + project;
-            openApps(path);
-            rl.close();
-          } else {
-            console.log("Incorrect Input");
-          }
-
-        });
-
-      } else {
-        console.log('Incorrect Input');
-      }
-    });
+    var index = readlineSync.keyInSelect(directory, question);
+    console.log('Ok, you selected ' + directory[index]);
+    return directory[index];
 
 }
 
@@ -102,7 +58,7 @@ function isInDirectory(directory, input) {
 
 function openApps(path) {
   console.log('opening apps');
-  //utils.openApp("cd ~ && atom Projects/Node/reminder_bot");
   utils.openApp(atomCmd + path);
-  //utils.openApp(terminalCmd);
+  utils.openApp(terminalCmd + path);
+  utils.openApp(terminalCmd + path);
 }
