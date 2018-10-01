@@ -1,5 +1,8 @@
-#!/usr/bin/env node --no-warnings
+#!/usr/bin/env node
 'use strict';
+
+//opens project from command line globally
+//creates instance of atom and two terminal windows, currently
 
 var fs = require('fs');
 var utils = require('../lib/utils.js');
@@ -9,41 +12,24 @@ const atomCmd = "cd && atom Projects/";
 const terminalCmd = "cd && gnome-terminal --working-directory='Projects/'";
 
 function main() {
-
   var path = getProjectPath();
   openApps(path);
-
 }
 main();
 
-function getProjectPath(directory) {
-
-    var directory = fs.readdirSync(utils.urlFromUserDir('Projects'));
-    var projectType = getUserInput(directory, "What project type?");
-
-    var projectDir = fs.readdirSync(utils.urlFromProjectsDir(projectType));
-    var project = getUserInput(projectDir, "What project?");
-
-    return projectType + "/" + project;
-
+function getProjectPath() {
+  var projectType = getUserInput('Projects', "What project type?");
+  var project = getUserInput('Projects/' + projectType, "What project?");
+  return projectType + "/" + project;
 }
 
-function getUserInput(directory, question) {
-
-    var index = readlineSync.keyInSelect(directory, question);
-    console.log('Ok, you selected ' + directory[index]);
-    return directory[index];
-
-}
-
-
-function isInDirectory(directory, input) {
-  var valid = false;
-  input = input.replace(/\r?\n|\r/g,"");
-  directory.forEach(function(element) {
-    if (element === input) valid = true;
-  });
-  return valid;
+function getUserInput(path, question) {
+  var directory = fs.readdirSync(utils.urlFromUserDir(path));
+  var dir = utils.returnDirectories(directory);
+  var index = readlineSync.keyInSelect(dir, question);
+  if (index == -1) process.exit(1);
+  console.log('Ok, you selected ' + dir[index]);
+  return dir[index];
 }
 
 function openApps(path) {
