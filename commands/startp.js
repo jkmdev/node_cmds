@@ -36,5 +36,4 @@ function openApps(path) {
   console.log('Opening apps.');
   utils.openApp(atomCmd + path);
   utils.openApp(terminalCmd + path);
-  utils.openApp(terminalCmd + path);
 }
