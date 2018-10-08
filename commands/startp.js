@@ -24,8 +24,8 @@ function getProjectPath() {
 }
 
 function getUserInput(path, question) {
-  var directory = fs.readdirSync(utils.urlFromUserDir(path));
-  var dir = utils.returnDirectories(directory);
+  var directoryContents = fs.readdirSync(utils.urlFromUserDir(path));
+  var dir = utils.returnDirectories(path, directoryContents);
   var index = readlineSync.keyInSelect(dir, question);
   if (index == -1) process.exit(1);
   console.log('Ok, you selected ' + dir[index]);
