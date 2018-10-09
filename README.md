@@ -3,6 +3,8 @@
 
 Simple command line applications for various use cases, like note taking, development environment start up, etc. Written in node.js.
 
+spawn -> creates new terminal window from current window
+
 ## Installing / Getting started
 
 This application was developed on and for my fedora linux OS. This application will not work on Windows without some tweaking of your own.
