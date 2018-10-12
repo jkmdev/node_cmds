@@ -6,12 +6,17 @@
 
 var fs = require('fs');
 var utils = require('../lib/utils.js');
+var config = require('../config.js');
 
-var fileName = 'QUICKNOTE.txt';
+var fileName = config.quickNoteFile;
 const fileURL = utils.urlFromUserDir('Documents/' + fileName);
 
 
 function main() {
+
+  if(process.argv[2] == '-n') {
+    fileName = 'test.txt';
+  }
 
   var appendText = getTextFromArgs();
 
