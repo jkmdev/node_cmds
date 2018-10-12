@@ -1,0 +1,1 @@
+exports.quickNoteFile='QUICKNOTE.txt';
