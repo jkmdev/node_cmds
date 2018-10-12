@@ -13,6 +13,10 @@ const fileURL = utils.urlFromUserDir('Documents/' + fileName);
 
 function main() {
 
+  if(process.argv[2] == '-n') {
+    fileName = 'test.txt';
+  }
+
   var appendText = getTextFromArgs();
 
   if (appendText) {
